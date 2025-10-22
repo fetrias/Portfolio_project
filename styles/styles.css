@@ -4,3 +4,27 @@
     opacity: 1;
     transform: scale(1);
 }
+
+:root {
+    --primary-color: #4c1d95;
+    --primary-dark: #3730a3;
+    --primary-light: #6366f1;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
