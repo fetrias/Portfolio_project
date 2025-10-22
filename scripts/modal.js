@@ -1,28 +1,21 @@
-// scripts/modal.js - исправленная версия
 
 function addDiaryEntry() {
     console.log('Функция вызвана!');
-    
+
     const title = document.getElementById('entryTitle').value;
     const date = document.getElementById('entryDate').value;
     const status = document.getElementById('entryStatus').value;
     const description = document.getElementById('entryDescription').value;
     const technologies = document.getElementById('entryTechnologies').value;
-    
-    console.log('Данные формы:', {title, date, status, description, technologies});
-    
-    // Убираем валидацию - она теперь в form-validation.js
-    // if (!title || !date || !description) {
-    //     alert('Заполните все обязательные поля!');
-    //     return;
-    // }
-    
+
+    console.log('Данные формы:', { title, date, status, description, technologies });
+
     const newEntry = document.createElement('div');
-    
+
     let borderColor = 'success';
     let badgeText = 'Завершено';
     let textColor = 'success';
-    
+
     if (status === 'in-progress') {
         borderColor = 'warning';
         badgeText = 'В процессе';
@@ -32,9 +25,9 @@ function addDiaryEntry() {
         badgeText = 'Запланировано';
         textColor = 'secondary';
     }
-    
+
     const formattedDate = new Date(date).toLocaleDateString('ru-RU');
-    
+
     newEntry.className = `diary-entry mb-4 p-3 border-start border-4 border-${borderColor}`;
     newEntry.innerHTML = `
         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -46,24 +39,23 @@ function addDiaryEntry() {
         </div>
         <p class="mb-2">${description}</p>
         <div class="tech-tags">
-            ${technologies ? technologies.split(',').map(tech => 
-                `<span class="badge bg-primary me-1">${tech.trim()}</span>`
-            ).join('') : ''}
+            ${technologies ? technologies.split(',').map(tech =>
+        `<span class="badge bg-primary me-1">${tech.trim()}</span>`
+    ).join('') : ''}
         </div>
     `;
-    
-    // Исправляем на правильный контейнер
+
     const diaryContainer = document.getElementById('diaryEntriesContainer');
     console.log('Diary container найден:', diaryContainer);
-    
+
     diaryContainer.insertBefore(newEntry, diaryContainer.firstChild);
-    
+
     const modal = document.getElementById('addEntryModal');
     const bsModal = bootstrap.Modal.getInstance(modal);
     bsModal.hide();
-    
+
     document.getElementById('diaryForm').reset();
-    
+
     console.log('Запись успешно добавлена!');
 }
 
