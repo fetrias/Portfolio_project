@@ -5,6 +5,7 @@
     transform: scale(1);
 }
 
+/* новые цвета */
 :root {
     --primary-color: #4c1d95;
     --primary-dark: #3730a3;
@@ -27,4 +28,192 @@
 .btn-primary:hover {
     background-color: var(--primary-dark);
     border-color: var(--primary-dark);
+}
+
+/* реализация скип-линк */
+.skip-link {
+    position: absolute;
+    inset-inline-start: 1rem;
+    inset-block-start: -100%;
+    z-index: 10000;
+    padding: .5rem .75rem;
+    background: #111;
+    color: #fff;
+    border-radius: .5rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    inset-block-start: 1rem;
+}
+
+/* видимый фокус для клавиатурной навигации */
+:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* увеличенные цели для touch-устройств */
+@media (pointer: coarse) {
+
+    .nav-link,
+    .btn,
+    .filter-btn {
+        min-height: 44px;
+        padding: .75rem 1rem;
+    }
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    padding-top: calc(.75rem + env(safe-area-inset-top, 0px));
+    padding-bottom: .75rem;
+    padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+    padding-right: calc(1rem + env(safe-area-inset-right, 0px));
+
+    isolation: isolate;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+}
+
+/* Safe areas для навигации */
+.navbar-dark.bg-dark {
+    padding-top: calc(.75rem + env(safe-area-inset-top, 0px));
+    padding-bottom: .75rem;
+    padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+    padding-right: calc(1rem + env(safe-area-inset-right, 0px));
+    isolation: isolate;
+}
+
+/* Safe areas для футера */
+.bg-dark {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Адаптивность для страницы проектов */
+@media (max-width: 768px) {
+
+    /* Фильтры - перенос на мобильных */
+    .btn-group {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+
+    .filter-btn {
+        margin-bottom: 0.5rem !important;
+        flex: 1 0 auto !important;
+        min-width: 120px !important;
+    }
+
+    /* Карточки проектов */
+    .project-card {
+        margin-bottom: 1rem !important;
+    }
+
+    .project-card .card-img-top {
+        width: 100% !important;
+        height: 150px !important;
+        object-fit: cover !important;
+    }
+
+    /* Контейнер */
+    .container {
+        padding: 0 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+
+    /* На очень узких экранах - одна колонка */
+    .project-card {
+        width: 100% !important;
+        margin: 0 0 1rem 0 !important;
+    }
+
+    /* Фильтры в столбик */
+    .btn-group {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .filter-btn {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}
+
+/* Исправляем Grid на странице проектов */
+.projects-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+}
+
+/* Фиксим изображения в карточках */
+.project-card .card {
+    overflow: hidden !important;
+}
+
+.project-card .card-img-top {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Контейнерные запросы для проектов */
+@supports (container-type: inline-size) {
+    .projects-grid {
+        container-type: inline-size;
+        container-name: projects-grid;
+    }
+
+    @container projects-grid (min-width: 640px) {
+        .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @container projects-grid (min-width: 960px) {
+        .projects-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @container projects-grid (min-width: 1200px) {
+        .projects-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
+
+/* Для дневника - контейнерные запросы для записей */
+@supports (container-type: inline-size) {
+    .diary-entries-container {
+        container-type: inline-size;
+        container-name: diary-entries;
+    }
+
+    @container diary-entries (min-width: 768px) {
+        .diary-entry {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .diary-entry .tech-tags {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+.projects-container {
+    width: 100%;
+    container-type: inline-size;
 }
